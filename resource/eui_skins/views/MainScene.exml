@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="MainSceneSkin" width="475" height="380" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" >
+	<w:Config id="174dfb14e00" ></w:Config>
+	<e:Image source="egret_icon_png" x="45" y="54"/>
+</e:Skin>
