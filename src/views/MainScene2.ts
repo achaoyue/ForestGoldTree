@@ -12,12 +12,32 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 
 	idMap = {};
 
+	joyStick: joyStick.JoyStickComponent;
+
 	public constructor() {
 		super();
 
+		var bg = RES.getRes("Back_01_png");
+        var joyTexture = RES.getRes("Joystick_03_png");
+		this.joyStick = new joyStick.JoyStickComponent(joyStick.joyStickType.TYPE_EIGHT,bg,joyTexture)
+		this.joyStick.width = 200;
+		this.joyStick.height = 200;
+		this.joyStick.x = 20;
+		this.joyStick.y = 900
+		this.joyStick.zIndex = 1000000000000
+		this.joyStick.scaleX=0.5;
+		this.joyStick.scaleY = 0.5;
+		this.joyStick.addEventListener(joyStick.joyStickEvent.EVENT_JOY_CHANGE, (e: egret.Event) => {
+        
+			this.bgUtil.ang = -e.data.angle/180*Math.PI;
+			this.bgUtil.power = e.data.power;
+
+        }, this);
+
 		this.bgUtil = new BgSceneUtil();
 		this.bgUtil.ang = Math.PI / 4;
-		this.bgUtil.moveSpeed = 2;
+		this.bgUtil.moveSpeed = 10;
+		this.bgUtil.power = 0.5;
 		this.addEventListener(egret.Event.ENTER_FRAME, this.onFrame, this);
 
 		this.worldX = 1280;
@@ -47,7 +67,8 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 	}
 
 	private init(worldX:number,worldY:number): void {
-		NetTool.get("http://localhost:8080/data/test/bgList?offset=0&pageSize=10").then(e => {
+		NetTool.get("http://192.168.3.21:8080/data/test/bgList?offset=0&pageSize=10").then(ag => {
+			let e:any = ag;
 			console.log(e,worldX,worldY);
 
 			//todo 删除出界的老元素
@@ -75,18 +96,20 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 				this.idMap[img.id] = img;
 				this.parent.addChild(img);
 			}
+			this.parent.addChild(this.joyStick);
 		})
 	}
 
 
 	protected childrenCreated(): void {
 		super.childrenCreated();
+		
 	}
 
 	public onFrame(): void {
 		//背景移动量计算
-		this.dx = this.dx + Math.cos(this.bgUtil.ang) * this.bgUtil.moveSpeed;
-		this.dy = this.dy + Math.sin(this.bgUtil.ang) * this.bgUtil.moveSpeed;
+		this.dx = this.dx + Math.cos(this.bgUtil.ang) * this.bgUtil.moveSpeed * this.bgUtil.power;
+		this.dy = this.dy + Math.sin(this.bgUtil.ang) * this.bgUtil.moveSpeed * this.bgUtil.power;
 		//背景移动
 		this.x = this.originx + this.dx;
 		this.y = this.originy + this.dy;

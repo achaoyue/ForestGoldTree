@@ -157,6 +157,7 @@ class Main extends eui.UILayer {
         // this.addChild(button);
         // button.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onButtonClick, this);
 
+    
         let mainScene =  new MainScene2();
         mainScene.x = 0;
         mainScene.y = 0;

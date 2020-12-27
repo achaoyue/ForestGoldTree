@@ -26,6 +26,10 @@
     },
     {
       "name": "promise"
+    },
+    {
+      "name":"joyStick",
+      "path":"./libs/joyStick"
     }
   ],
   "vivo": {
