@@ -1,4 +1,5 @@
 class MainScene2 extends eui.Component implements eui.UIComponent {
+	react : MyRect;
 	bgUtil: BgSceneUtil;
 	worldX: number;
 	worldY: number;
@@ -9,17 +10,18 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 	dx: number;
 	dy: number;
 
-	element = [];
+	idMap = {};
 
 	public constructor() {
 		super();
+
 		this.bgUtil = new BgSceneUtil();
 		this.bgUtil.ang = Math.PI / 4;
 		this.bgUtil.moveSpeed = 2;
 		this.addEventListener(egret.Event.ENTER_FRAME, this.onFrame, this);
 
 		this.worldX = 1280;
-		this.worldY = 2272;
+		this.worldY = 2572;
 		this.dx = 0;
 		this.dy = 0;
 		this.width = 1280;
@@ -27,20 +29,11 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 		this.originx = -(this.width - 640) / 2;
 		this.originy = -(this.height - 1136) / 2;
 
-		for (let i = 0; i < 300; i++) {
-
-			let img = new MyImg();
-			img.texture = RES.getRes("egret_icon_png");
-			img.ox = Math.random() * 1280 + this.worldX;
-			img.oy = Math.random() * 2272 + this.worldY;
-			this.element.push(img);
-			this.justEle(img);
-			this.localToGlobal()
-		}
+		this.init(this.worldX,this.worldY);
 
 	}
 
-	public justEle(img: MyImg) {
+	public justEle(img: any) {
 		img.x = img.ox - this.worldX;
 		img.y = img.oy - this.worldY;
 		let p: egret.Point = this.localToGlobal(img.x, img.y);
@@ -53,25 +46,41 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 
 	}
 
-	private init(): void {
+	private init(worldX:number,worldY:number): void {
 		NetTool.get("http://localhost:8080/data/test/bgList?offset=0&pageSize=10").then(e => {
-			console.log(e);
-			// this.element.forEach(e => {
-			// 	this.parent.removeChild(e);
-			// });
+			console.log(e,worldX,worldY);
 
-			// this.element.forEach(e => {
-			// 	this.parent.addChild(e);
-			// })
+			//todo 删除出界的老元素
+			for(let key in this.idMap){
+				try{
+					this.parent.removeChild(this.idMap[key]);
+					this.idMap[key] = undefined;
+				}catch(e){
+					console.log("老元素移除失败");
+				}
+			}
+
+			//添加新元素
+			for(let i in e){
+				let ele = e[i];
+				if(this.idMap[ele.id]){
+					continue;
+				}
+				let img = new MyImg();
+				img.id = ele.id;
+				img.texture = RES.getRes(ele.url);
+				img.ox = ele.worldX
+				img.oy = ele.worldY
+				this.justEle(img);
+				this.idMap[img.id] = img;
+				this.parent.addChild(img);
+			}
 		})
 	}
 
 
 	protected childrenCreated(): void {
 		super.childrenCreated();
-		this.element.forEach(e => {
-				this.parent.addChild(e);
-			})
 	}
 
 	public onFrame(): void {
@@ -82,9 +91,10 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 		this.x = this.originx + this.dx;
 		this.y = this.originy + this.dy;
 
-		this.element.forEach(e => {
-			this.justEle(e);
-		})
+		//元素移动
+		for(let key in this.idMap){
+			this.justEle(this.idMap[key]);
+		}
 
 		//重新布局
 		if (!(Math.abs(this.dx) < 320 && Math.abs(this.dy) < 1136 / 2 - 100)) {
@@ -93,7 +103,7 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 			this.worldY = this.worldY - this.dy;
 			this.dx = 0;
 			this.dy = 0;
-			this.init();
+			this.init(this.worldX,this.worldY);
 		}
 
 

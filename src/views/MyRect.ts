@@ -1,4 +1,4 @@
-class MyImg extends eui.Image{
+class MyRect extends eui.Rect{
 	id:number;
 	ox:number;
 	oy:number;
