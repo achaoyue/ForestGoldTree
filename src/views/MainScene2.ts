@@ -14,6 +14,8 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 
 	joyStick: joyStick.JoyStickComponent;
 
+	player : eui.Image;
+
 	public constructor() {
 		super();
 
@@ -29,8 +31,9 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 		this.joyStick.scaleY = 0.5;
 		this.joyStick.addEventListener(joyStick.joyStickEvent.EVENT_JOY_CHANGE, (e: egret.Event) => {
         
-			this.bgUtil.ang = -e.data.angle/180*Math.PI;
+			this.bgUtil.ang = (-e.data.angle+180)/180*Math.PI;
 			this.bgUtil.power = e.data.power;
+			this.player.rotation = -e.data.angle+90;
 
         }, this);
 
@@ -50,6 +53,8 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 		this.originy = -(this.height - 1136) / 2;
 
 		this.init(this.worldX,this.worldY);
+
+		
 
 	}
 
@@ -97,13 +102,22 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 				this.parent.addChild(img);
 			}
 			this.parent.addChild(this.joyStick);
+			this.parent.addChild(this.player);
 		})
 	}
 
 
 	protected childrenCreated(): void {
 		super.childrenCreated();
-		
+		var p = RES.getRes("turtle2_png");
+		var img = new eui.Image(p);
+		img.width = 70;
+		img.height = 70;
+		img.x = (this.parent.width - img.width) /2;
+		img.y = (this.parent.height - img.height)/2;
+		img.anchorOffsetX = img.width/2;
+		img.anchorOffsetY = img.height/2;
+		this.player = img;
 	}
 
 	public onFrame(): void {
