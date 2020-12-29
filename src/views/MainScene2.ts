@@ -36,6 +36,10 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 			this.player.rotation = -e.data.angle+90;
 
         }, this);
+		this.joyStick.addEventListener(joyStick.joyStickEvent.EVENT_JOY_END, (e: egret.Event) => {
+			this.bgUtil.power = 0;
+
+        }, this);
 
 		this.bgUtil = new BgSceneUtil();
 		this.bgUtil.ang = Math.PI / 4;
@@ -44,7 +48,7 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 		this.addEventListener(egret.Event.ENTER_FRAME, this.onFrame, this);
 
 		this.worldX = 1280;
-		this.worldY = 2572;
+		this.worldY = 2272;
 		this.dx = 0;
 		this.dy = 0;
 		this.width = 1280;
@@ -72,24 +76,22 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 	}
 
 	private init(worldX:number,worldY:number): void {
-		NetTool.get("http://192.168.3.21:8080/data/test/bgList?offset=0&pageSize=10").then(ag => {
+		let param = {
+			startx:worldX,
+			starty:worldY,
+			endx:worldX+this.width,
+			endy:worldY+this.worldY,
+			pageSize:200
+		};
+		NetTool.get("http://192.168.3.21:8080/data/test/bgList?",param).then(ag => {
 			let e:any = ag;
 			console.log(e,worldX,worldY);
 
-			//todo 删除出界的老元素
-			for(let key in this.idMap){
-				try{
-					this.parent.removeChild(this.idMap[key]);
-					this.idMap[key] = undefined;
-				}catch(e){
-					console.log("老元素移除失败");
-				}
-			}
-
-			//添加新元素
+			let newMap = {};
 			for(let i in e){
 				let ele = e[i];
 				if(this.idMap[ele.id]){
+					newMap[ele.id] = this.idMap[ele.id]
 					continue;
 				}
 				let img = new MyImg();
@@ -98,9 +100,21 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 				img.ox = ele.worldX
 				img.oy = ele.worldY
 				this.justEle(img);
-				this.idMap[img.id] = img;
+				newMap[img.id] = img;
 				this.parent.addChild(img);
 			}
+			for(let key in this.idMap){
+				try{
+					if(!newMap[key]){
+						this.parent.removeChild(this.idMap[key]);
+						this.idMap[key] = undefined;
+					}
+				}catch(e){
+					console.log("老元素移除失败");
+				}
+			}
+			this.idMap = newMap;
+
 			this.parent.addChild(this.joyStick);
 			this.parent.addChild(this.player);
 		})

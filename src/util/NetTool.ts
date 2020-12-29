@@ -17,7 +17,8 @@ class NetTool {
 		});
 	}
 
-	public static get(url) {
+	public static get(url,param) {
+		url += NetTool.toGetParam(param)
 		return new Promise(function (resolve, reject) {
 			var request: egret.HttpRequest;
 			request = new egret.HttpRequest();
@@ -29,5 +30,17 @@ class NetTool {
 			request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 			request.send();
 		});
+	}
+
+	public static toGetParam(paramObj){
+		if(!paramObj){
+			return "";
+		}
+		let str = "";
+		for(let key in paramObj){
+			let param = paramObj[key];
+			str += key+"="+param+"&"
+		}
+		return str;
 	}
 }
