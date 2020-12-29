@@ -47,8 +47,8 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 		this.bgUtil.power = 0.5;
 		this.addEventListener(egret.Event.ENTER_FRAME, this.onFrame, this);
 
-		this.worldX = 1280;
-		this.worldY = 2272;
+		this.worldX = 0;
+		this.worldY = 0;
 		this.dx = 0;
 		this.dy = 0;
 		this.width = 1280;
@@ -80,7 +80,7 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 			startx:worldX,
 			starty:worldY,
 			endx:worldX+this.width,
-			endy:worldY+this.worldY,
+			endy:worldY+this.height,
 			pageSize:200
 		};
 		NetTool.get("http://192.168.3.21:8080/data/test/bgList?",param).then(ag => {
