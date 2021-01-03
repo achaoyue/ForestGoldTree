@@ -26,6 +26,8 @@
     },
     {
       "name": "promise"
+    },{
+      "name": "socket"
     },
     {
       "name":"joyStick",
