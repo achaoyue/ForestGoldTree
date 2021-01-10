@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="SelectElementSkin" width="452" height="67" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" >
+	<w:Config id="176ece5fa1d" ></w:Config>
+	<e:Image id="tree1Img" source="tree1_png" x="16" y="6" anchorOffsetX="0" width="48" anchorOffsetY="0" height="56"/>
+	<e:Image id="grassImg" source="grass_png" x="76" y="5" anchorOffsetX="0" width="67" anchorOffsetY="0" height="54"/>
+	<e:Image id="tree2Img" source="tree2_png" x="154" y="1" anchorOffsetX="0" width="67" anchorOffsetY="0" height="67"/>
+	<e:Image id="tree3Img" source="tree3_png" x="231" y="2" anchorOffsetX="0" width="58" anchorOffsetY="0" height="59"/>
+	<e:Image id="houseImg" source="house1_png" x="301" y="0" anchorOffsetX="0" width="83" anchorOffsetY="0" height="69"/>
+</e:Skin>

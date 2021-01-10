@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="SendTextScenesSkin" width="400" height="44" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" >
+	<w:Config id="176ec23cd08" ></w:Config>
+	<e:TextInput id="inputText" width="255" height="44" x="13" y="-1" anchorOffsetX="0" anchorOffsetY="0"/>
+	<e:Button id="sendBut" label="发送" x="269" y="0" anchorOffsetY="0" height="45"/>
+</e:Skin>
