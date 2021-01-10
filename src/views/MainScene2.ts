@@ -67,6 +67,12 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 
 		this.initWebsocket();
 
+		this.react = new MyRect();
+		this.react.fillColor = 0xFFFFFF
+		this.react.alpha = 0.9;
+		this.react.width = this.width;
+		this.react.height = this.height;
+		// this.addChild(this.react);
 	}
 
 	public justEle(img: any) {
@@ -81,7 +87,7 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 		super.partAdded(partName, instance);
 	}
 
-	private init(worldX:number,worldY:number): void {
+	public init(worldX:number,worldY:number): void {
 		let param = {
 			startx:worldX,
 			starty:worldY,
@@ -89,7 +95,7 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 			endy:worldY+this.height,
 			pageSize:200
 		};
-		NetTool.get("http://localhost:8080/data/test/bgList?",param).then(ag => {
+		NetTool.get("http://192.168.3.21:8080/data/test/bgList?",param).then(ag => {
 			let e:any = ag;
 			// console.log(e,worldX,worldY);
 
@@ -141,15 +147,16 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 		//添加异常侦听，出现异常会调用此方法
 		this.socket.addEventListener(egret.IOErrorEvent.IO_ERROR, this.onSocketError, this);
 		//连接服务器
-		this.socket.connectByUrl("ws://localhost:8080/websocket")
+		this.socket.connectByUrl("ws://192.168.3.21:8080/websocket")
 	}
 
 	public onReceiveMessage():void{
 		let msg = this.socket.readUTF();
-		// console.log(msg);
 		let jsonMsg = JSON.parse(msg);
-		let player = this.players[jsonMsg.id];
-		if(jsonMsg.type == 2 || jsonMsg.type == 1){
+		let player:MyImg = this.players[jsonMsg.id];
+		if(jsonMsg.type == 1){
+			console.log(msg);
+		}else if(jsonMsg.type == 2 ){
 			if(player == null){
 				var p = RES.getRes("turtle2_png");
 				var img = new MyImg();
@@ -165,16 +172,17 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 				this.players[jsonMsg.id] = img;
 				this.parent.addChild(img);
 			}
-			player.rotation = Math.atan2(jsonMsg.dirX,-jsonMsg.dirY)*180/Math.PI
+			player.img.rotation = Math.atan2(jsonMsg.dirX,-jsonMsg.dirY)*180/Math.PI
 			// console.log((Math.atan2(jsonMsg.dirX,-jsonMsg.dirY)*180/Math.PI+360)%360)
 			player.id = jsonMsg.id;
 			player.ox = jsonMsg.targetX+this.width/2;
 			player.oy = jsonMsg.targetY+this.height/2;
-			// egret.Tween.get(player, { loop: false })
-			// 	.to({ ox: jsonMsg.targetX+this.width/2,oy: jsonMsg.targetY+this.height/2,scaleY:1.5}, 200, egret.Ease.backInOut)
-			// 	.to({scaleY:1 }, 10, egret.Ease.backInOut);
-
 			
+		}else if(jsonMsg.type == 3){
+			if(player == null){
+				return;
+			}
+			player.say(jsonMsg.text);
 		}else if(jsonMsg.type == 4){
 			if(player != null && player.parent){
 				player.parent.removeChild(player);
@@ -257,6 +265,14 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 
 	}
 
+	public msgListener(event:egret.Event){
+		let msg = {
+			id:111,
+			type:3,
+			text:event.data
+		}
+		this.sendMsg(msg);
+	}
 
 
 }

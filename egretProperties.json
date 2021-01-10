@@ -26,15 +26,26 @@
     },
     {
       "name": "promise"
-    },{
+    },
+    {
       "name": "socket"
     },
     {
-      "name":"joyStick",
-      "path":"./libs/joyStick"
+      "name": "joyStick",
+      "path": "./libs/joyStick"
+    }
+    ,
+    {
+      "name": "greensock",
+      "path": "./libs/greensock"
     }
   ],
   "vivo": {
     "usePlugin": true
+  },
+  "eui": {
+    "exmlRoot": [
+      "resource/eui_skins"
+    ]
   }
 }

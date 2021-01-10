@@ -3,5 +3,20 @@
         "path": "views/MainScene.ts",
         "class": "MainScene",
         "parentPath": ""
+    },
+    "176eb396da3": {
+        "path": "scenes/TextMessage.ts",
+        "class": "TextMessage",
+        "parentPath": ""
+    },
+    "176ec23cd08": {
+        "path": "scenes/SendTextScenes.ts",
+        "class": "SendTextScenes",
+        "parentPath": ""
+    },
+    "176ece5fa1d": {
+        "path": "scenes/SelectElement.ts",
+        "class": "SelectElement",
+        "parentPath": ""
     }
 }

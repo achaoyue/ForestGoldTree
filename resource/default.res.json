@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "checkbox_select_disabled_png,checkbox_select_down_png,checkbox_select_up_png,checkbox_unselect_png,selected_png,border_png,header_png,radiobutton_select_disabled_png,radiobutton_select_down_png,radiobutton_select_up_png,radiobutton_unselect_png,roundthumb_png,thumb_png,track_png,tracklight_png,handle_png,off_png,on_png,button_down_png,button_up_png,thumb_pb_png,track_pb_png,track_sb_png,bg_jpg,egret_icon_png,description_json,bg1_jpg,grass_png,tree1_png,Back_01_png,Back_02_png,Joystick_03_png,turtle_png,turtle2_png",
+			"keys": "checkbox_select_disabled_png,checkbox_select_down_png,checkbox_select_up_png,checkbox_unselect_png,selected_png,border_png,header_png,radiobutton_select_disabled_png,radiobutton_select_down_png,radiobutton_select_up_png,radiobutton_unselect_png,roundthumb_png,thumb_png,track_png,tracklight_png,handle_png,off_png,on_png,button_down_png,button_up_png,thumb_pb_png,track_pb_png,track_sb_png,bg_jpg,egret_icon_png,description_json,bg1_jpg,grass_png,tree1_png,Back_01_png,Back_02_png,Joystick_03_png,turtle_png,turtle2_png,tree2_png,tree3_png,house1_png",
 			"name": "preload"
 		}
 	],
@@ -175,6 +175,21 @@
 			"name": "turtle2_png",
 			"type": "image",
 			"url": "assets/turtle2.png"
+		},
+		{
+			"name": "tree2_png",
+			"type": "image",
+			"url": "assets/tree2.png"
+		},
+		{
+			"name": "tree3_png",
+			"type": "image",
+			"url": "assets/tree3.png"
+		},
+		{
+			"name": "house1_png",
+			"type": "image",
+			"url": "assets/house1.png"
 		}
 	]
 }

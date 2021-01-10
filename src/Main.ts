@@ -28,6 +28,7 @@
 //////////////////////////////////////////////////////////////////////////////////////
 
 class Main extends eui.UILayer {
+    private msgScene:SendTextScenes
 
 
     protected createChildren(): void {
@@ -150,18 +151,41 @@ class Main extends eui.UILayer {
         // textfield.y = 135;
         // this.textfield = textfield;
 
-        // let button = new eui.Button();
-        // button.label = "Click!";
-        // button.horizontalCenter = 0;
-        // button.verticalCenter = 0;
-        // this.addChild(button);
-        // button.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onButtonClick, this);
+        
+
+        
 
     
         let mainScene =  new MainScene2();
         mainScene.x = 0;
         mainScene.y = 0;
         this.addChild(mainScene);
+
+        let select = new SelectElement(mainScene);
+        this.addChild(select);
+
+        let button2 = new eui.Button();
+        button2.label = "添加元素";
+        button2.x = 340;
+        button2.y = 20
+        this.addChild(button2);
+        button2.addEventListener(egret.TouchEvent.TOUCH_TAP, ()=>{
+            select.visible = true;
+        }, this);
+        
+        let button = new eui.Button();
+        button.label = "发送消息";
+        button.x = 540;
+        button.y = 20
+        this.addChild(button);
+        button.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onButtonClick, this);
+
+        this.msgScene = new SendTextScenes();
+        this.msgScene.x = 30;
+        this.msgScene.y = 300;
+        this.addChild(this.msgScene);
+
+        this.addEventListener("sendMsg",mainScene.msgListener,mainScene);
     }
     /**
      * 根据name关键字创建一个Bitmap对象。name属性请参考resources/resource.json配置文件的内容。
@@ -208,10 +232,6 @@ class Main extends eui.UILayer {
      * Click the button
      */
     private onButtonClick(e: egret.TouchEvent) {
-        let panel = new eui.Panel();
-        panel.title = "Title";
-        panel.horizontalCenter = 0;
-        panel.verticalCenter = 0;
-        this.addChild(panel);
+        this.msgScene.visible = true;
     }
 }
