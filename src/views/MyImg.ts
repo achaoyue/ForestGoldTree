@@ -27,7 +27,7 @@ class MyImg extends eui.Component{
         textfield.alpha = 1;
         textfield.width = 172;
         textfield.textAlign = egret.HorizontalAlign.LEFT;
-        textfield.size = 24;
+        textfield.size = 12;
         textfield.textColor = 0x000000;
         textfield.x = 0;
         textfield.y = 0;
@@ -39,7 +39,7 @@ class MyImg extends eui.Component{
 	private onFrame(){
 	
 		if(this.textfield){
-			this.textfield.text =this.id+","+ parseInt((this.ox)+"")+"-"+parseInt(this.oy+"");
+			this.textfield.text = parseInt((this.ox)+"")+"-"+parseInt(this.oy+"");
 		}
 	}
 

@@ -89,7 +89,7 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 			endy:worldY+this.height,
 			pageSize:200
 		};
-		NetTool.get("http://192.168.3.21:8080/data/test/bgList?",param).then(ag => {
+		NetTool.get("http://localhost:8080/data/test/bgList?",param).then(ag => {
 			let e:any = ag;
 			// console.log(e,worldX,worldY);
 
@@ -141,7 +141,7 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 		//添加异常侦听，出现异常会调用此方法
 		this.socket.addEventListener(egret.IOErrorEvent.IO_ERROR, this.onSocketError, this);
 		//连接服务器
-		this.socket.connectByUrl("ws://192.168.3.21:8080/websocket")
+		this.socket.connectByUrl("ws://localhost:8080/websocket")
 	}
 
 	public onReceiveMessage():void{
@@ -149,7 +149,7 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 		// console.log(msg);
 		let jsonMsg = JSON.parse(msg);
 		let player = this.players[jsonMsg.id];
-		if(jsonMsg.type == 2){
+		if(jsonMsg.type == 2 || jsonMsg.type == 1){
 			if(player == null){
 				var p = RES.getRes("turtle2_png");
 				var img = new MyImg();
@@ -159,7 +159,7 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 				img.x = (this.parent.width - img.width) /2;
 				img.y = (this.parent.height - img.height)/2;
 				img.anchorOffsetX = img.width/2;
-				img.anchorOffsetY = img.height/2;
+				// img.anchorOffsetY = img.height/2;
 				
 				player = img;
 				this.players[jsonMsg.id] = img;
@@ -168,10 +168,12 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 			player.rotation = Math.atan2(jsonMsg.dirX,-jsonMsg.dirY)*180/Math.PI
 			// console.log((Math.atan2(jsonMsg.dirX,-jsonMsg.dirY)*180/Math.PI+360)%360)
 			player.id = jsonMsg.id;
-			player.ox = jsonMsg.targetX;
-			player.oy = jsonMsg.targetY;
 			player.ox = jsonMsg.targetX+this.width/2;
 			player.oy = jsonMsg.targetY+this.height/2;
+			// egret.Tween.get(player, { loop: false })
+			// 	.to({ ox: jsonMsg.targetX+this.width/2,oy: jsonMsg.targetY+this.height/2,scaleY:1.5}, 200, egret.Ease.backInOut)
+			// 	.to({scaleY:1 }, 10, egret.Ease.backInOut);
+
 			
 		}else if(jsonMsg.type == 4){
 			if(player != null && player.parent){
@@ -237,7 +239,7 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
   			"id": 0
 		}
 		let now = new Date().getTime();
-		if(now - this.lastSendTime > 200 && this.bgUtil.power>0){
+		if(now - this.lastSendTime > 20 && this.bgUtil.power>0){
 			this.sendMsg(movdCmd);
 			this.lastSendTime = now;
 		}
