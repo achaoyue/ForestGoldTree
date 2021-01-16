@@ -1,9 +1,11 @@
 class SelectElement extends eui.Component implements  eui.UIComponent {
-	public tree1Img:eui.Image;
-	public grassImg:eui.Image;
-	public tree2Img:eui.Image;
-	public tree3Img:eui.Image;
-	public houseImg:eui.Image;
+public tree1Img:eui.Image;
+public grassImg:eui.Image;
+public tree2Img:eui.Image;
+public tree3Img:eui.Image;
+public houseImg:eui.Image;
+public closeBtn:eui.Image;
+
 
 
 	map = {};
@@ -29,6 +31,7 @@ class SelectElement extends eui.Component implements  eui.UIComponent {
 		this.tree2Img.addEventListener(egret.TouchEvent.TOUCH_TAP,this.click,this);
 		this.tree3Img.addEventListener(egret.TouchEvent.TOUCH_TAP,this.click,this);
 		this.houseImg.addEventListener(egret.TouchEvent.TOUCH_TAP,this.click,this);
+		this.closeBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.close,this);
 
 		console.log("mainScene")
 		this.mainScene.addEventListener(egret.TouchEvent.TOUCH_TAP,this.listList,this);
@@ -59,11 +62,24 @@ class SelectElement extends eui.Component implements  eui.UIComponent {
 			worldY:this.mainScene.worldY+e.localY,
 			deleted:0
 		};
-		NetTool.get("http://192.168.3.21:8080/data/test/saveBgList?",param).then(ag => {
+		NetTool.get("http://192.168.3.21:8080/data/test/saveBgList?",param).then((ag:any) => {
 			console.log(ag);
 			this.visible = false;
-			this.mainScene.init(this.mainScene.worldX,this.mainScene.worldY);
+			
+			let img = new MyImg();
+				img.id = ag.id;
+				img.texture = RES.getRes(ag.url);
+				img.ox = ag.worldX
+				img.oy = ag.worldY
+				this.mainScene.justEle(img);
+				this.mainScene.idMap[img.id] = img;
+				this.mainScene.parent.addChild(img);
 		})
 	}
 	
+
+	public close(){
+		this.visible = false;
+		LayerMamager.getInstance().get("PopUpLayer").visible = false;
+	}
 }

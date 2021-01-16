@@ -30,6 +30,8 @@ declare module skins{
 	class RadioButtonSkin extends eui.Skin{
 	}
 }
+declare class OptionalPanelSkin extends eui.Skin{
+}
 declare class SendTextScenesSkin extends eui.Skin{
 }
 declare class TextMessageSkin extends eui.Skin{

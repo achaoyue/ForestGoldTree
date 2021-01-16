@@ -16,7 +16,8 @@
 		"MainScene": "resource/eui_skins/views/MainScene.exml",
 		"TextMessage": "resource/eui_skins/scenes/TextMessage.exml",
 		"SendTextScenes": "resource/eui_skins/scenes/SendTextScenes.exml",
-		"SelectElement": "resource/eui_skins/SelectElement.exml"
+		"SelectElement": "resource/eui_skins/SelectElement.exml",
+		"OptionalPanel": "resource/eui_skins/scenes/OptionalPanel.exml"
 	},
 	"autoGenerateExmlsList": true,
 	"exmls": [
@@ -28,6 +29,7 @@
 		"resource/eui_skins/PanelSkin.exml",
 		"resource/eui_skins/ProgressBarSkin.exml",
 		"resource/eui_skins/RadioButtonSkin.exml",
+		"resource/eui_skins/scenes/OptionalPanel.exml",
 		"resource/eui_skins/scenes/SendTextScenes.exml",
 		"resource/eui_skins/scenes/TextMessage.exml",
 		"resource/eui_skins/ScrollerSkin.exml",

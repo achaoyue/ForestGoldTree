@@ -3,4 +3,5 @@
 	<w:Config id="176ec23cd08" ></w:Config>
 	<e:TextInput id="inputText" width="255" height="44" x="13" y="-1" anchorOffsetX="0" anchorOffsetY="0"/>
 	<e:Button id="sendBut" label="发送" x="269" y="0" anchorOffsetY="0" height="45"/>
+	<e:Image id="closeBtn" source="Joystick_03_png" x="359" y="-18" anchorOffsetX="0" width="34" anchorOffsetY="0" height="31"/>
 </e:Skin>

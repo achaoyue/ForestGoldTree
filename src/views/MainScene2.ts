@@ -1,3 +1,5 @@
+/// <reference path="../../libs/joyStick/joyStick.d.ts" />
+
 class MainScene2 extends eui.Component implements eui.UIComponent {
 	react : MyRect;
 	bgUtil: BgSceneUtil;
@@ -72,7 +74,7 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 		this.react.alpha = 0.9;
 		this.react.width = this.width;
 		this.react.height = this.height;
-		// this.addChild(this.react);
+		this.addChild(this.react);
 	}
 
 	public justEle(img: any) {
@@ -131,7 +133,6 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 			}
 
 			this.parent.addChild(this.joyStick);
-			// this.parent.addChild(this.player);
 		})
 	}
 
@@ -154,9 +155,7 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 		let msg = this.socket.readUTF();
 		let jsonMsg = JSON.parse(msg);
 		let player:MyImg = this.players[jsonMsg.id];
-		if(jsonMsg.type == 1){
-			console.log(msg);
-		}else if(jsonMsg.type == 2 ){
+		if(jsonMsg.type == 2 || jsonMsg.type == 1){
 			if(player == null){
 				var p = RES.getRes("turtle2_png");
 				var img = new MyImg();
@@ -177,6 +176,7 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 			player.id = jsonMsg.id;
 			player.ox = jsonMsg.targetX+this.width/2;
 			player.oy = jsonMsg.targetY+this.height/2;
+			
 			
 		}else if(jsonMsg.type == 3){
 			if(player == null){
@@ -240,11 +240,10 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 
 		let movdCmd = {
  			"type": 2,
-  			"dirX": this.bgUtil.dirX,
-  			"dirY": this.bgUtil.dirY,
-  			"targetX": this.worldX-this.dx,
-  			"targetY": this.worldY-this.dy,
-  			"id": 0
+			"dirX": Math.round(this.bgUtil.dirX),
+			"dirY": Math.round(this.bgUtil.dirY),
+			  "targetX": Math.round(this.worldX-this.dx),
+			  "targetY": Math.round(this.worldY-this.dy)
 		}
 		let now = new Date().getTime();
 		if(now - this.lastSendTime > 20 && this.bgUtil.power>0){

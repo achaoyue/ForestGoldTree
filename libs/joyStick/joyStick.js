@@ -259,4 +259,5 @@ var joyStick;
     }(eui.Component));
     joyStick_1.JoyStickComponent = JoyStickComponent;
     __reflect(JoyStickComponent.prototype, "joyStick.JoyStickComponent");
+    window.joyStick = joyStick_1;
 })(joyStick || (joyStick = {}));

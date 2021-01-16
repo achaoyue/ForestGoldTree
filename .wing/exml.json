@@ -18,5 +18,10 @@
         "path": "scenes/SelectElement.ts",
         "class": "SelectElement",
         "parentPath": ""
+    },
+    "1770b4cdb9c": {
+        "path": "scenes/OptionalPanel.ts",
+        "class": "OptionalPanel",
+        "parentPath": ""
     }
 }

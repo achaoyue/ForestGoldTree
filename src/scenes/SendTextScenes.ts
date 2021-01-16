@@ -1,6 +1,7 @@
 class SendTextScenes extends eui.Component implements  eui.UIComponent {
 	public inputText:eui.TextInput;
 	public sendBut:eui.Button;
+	public closeBtn:eui.Image;
 
 
 	public constructor() {
@@ -18,6 +19,7 @@ class SendTextScenes extends eui.Component implements  eui.UIComponent {
 	{
 		super.childrenCreated();
 		this.sendBut.addEventListener(egret.TouchEvent.TOUCH_TAP,this.sendMsg,this);
+		this.closeBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.close,this);
 	}
 
 	public sendMsg(){
@@ -25,6 +27,11 @@ class SendTextScenes extends eui.Component implements  eui.UIComponent {
 		event.data = this.inputText.text;
 		this.parent.dispatchEvent(event);
 		this.visible = false;
+		this.close();
 	}
 	
+	public close(){
+		this.visible = false;
+		LayerMamager.getInstance().get("PopUpLayer").visible = false;
+	}
 }
