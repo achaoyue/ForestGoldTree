@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="OptionalPanelSkin" width="400" height="99" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" >
+	<w:Config id="1770b4cdb9c" ></w:Config>
+	<e:Button id="addEleBtn" label="添加" x="166" y="22"/>
+	<e:Button id="msgBtn" label="发送消息" x="282" y="22"/>
+	<e:Button id="leaveBtn" label="留言" x="51" y="23"/>
+</e:Skin>
