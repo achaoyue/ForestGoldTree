@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="MsgShowPanelSkin" width="400" height="300" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" >
 	<w:Config id="1770c263f9a" ></w:Config>
-	<e:Rect width="100%" height="100%" x="0" y="0" fillColor="0xF0ADAD"/>
+	<e:Rect width="100%" height="100%" x="0" y="0" fillColor="0xCDC5C5"/>
 	<e:Label id="label" x="0" y="0" width="100%" height="100%" textColor="0x3D0101" textAlign="center"/>
 	<e:Image id="closeBtn" source="Joystick_03_png" x="339" y="-21" anchorOffsetX="0" width="52" anchorOffsetY="0" height="50"/>
 </e:Skin>

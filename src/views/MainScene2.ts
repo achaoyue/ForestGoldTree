@@ -36,8 +36,14 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 		this.joyStick.zIndex = 1000000000000
 		this.joyStick.scaleX=0.5;
 		this.joyStick.scaleY = 0.5;
+		this.joyStick.zIndex = 100000000;
+		this.joyStick.addEventListener(egret.TouchEvent.TOUCH_BEGIN,(e)=>{
+			e.stopPropagation();
+			e.preventDefault();
+		},this);
 		this.joyStick.addEventListener(joyStick.joyStickEvent.EVENT_JOY_CHANGE, (e: egret.Event) => {
-        
+        	e.stopPropagation();
+			e.preventDefault();
 			this.bgUtil.ang = (-e.data.angle+180)/180*Math.PI;
 			this.bgUtil.power = e.data.power;
 			this.player.rotation = -e.data.angle+90;
@@ -45,6 +51,8 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 			this.bgUtil.dirY = e.data.y;
         }, this);
 		this.joyStick.addEventListener(joyStick.joyStickEvent.EVENT_JOY_END, (e: egret.Event) => {
+			e.stopPropagation();
+			e.preventDefault();
 			this.bgUtil.power = 0;
         }, this);
 
@@ -64,6 +72,19 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 		this.originy = -(this.height - 1136) / 2;
 		this.worldX = this.originx;
 		this.worldY = this.originy;
+
+		let positionParamStr = egret.localStorage.getItem("locationParam");
+		if(positionParamStr == null){
+			positionParamStr = JSON.stringify({
+				worldX:-640,
+				worldY:-1136,
+				stageX:0,
+				stageY:0
+			});
+		}
+		let positionParam = JSON.parse(positionParamStr);
+		this.worldX = positionParam.stageX || 0;
+		this.worldY = positionParam.stageY || 0;
 
 		this.init(this.worldX,this.worldY);
 
@@ -129,8 +150,6 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 			for(let key in this.idMap){
 				this.parent.addChild(this.idMap[key]);
 			}
-
-			this.parent.addChild(this.joyStick);
 		})
 	}
 
@@ -145,8 +164,16 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 		this.socket.addEventListener(egret.Event.CLOSE, this.onSocketClose, this);
 		//添加异常侦听，出现异常会调用此方法
 		this.socket.addEventListener(egret.IOErrorEvent.IO_ERROR, this.onSocketError, this);
+		let positionParamStr = egret.localStorage.getItem("locationParam");
+		if(positionParamStr == null){
+			positionParamStr = JSON.stringify({
+				worldX:-640,
+				worldY:-1136
+			});
+		}
+		let positionParam = JSON.parse(positionParamStr);
 		//连接服务器
-		this.socket.connectByUrl("ws://192.168.3.21:8080/websocket")
+		this.socket.connectByUrl("ws://192.168.3.21:8080/websocket/"+positionParam.worldX+"/"+positionParam.worldY);
 	}
 
 	public onReceiveMessage():void{
@@ -160,6 +187,7 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 				img.width = 70;
 				img.height = 70;
 				img.texture = p;
+				img.showText = true;
 				img.x = (this.parent.width - img.width) /2;
 				img.y = (this.parent.height - img.height)/2;
 				img.anchorOffsetX = img.width/2;
@@ -194,6 +222,7 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 	}
 	public onSocketClose():void{
 		console.log("close")
+		
 	}
 	public onSocketError():void{
 		console.log("close")
@@ -204,6 +233,7 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 
 	protected childrenCreated(): void {
 		super.childrenCreated();
+
 		var p = RES.getRes("turtle2_png");
 		var img = new eui.Image(p);
 		img.width = 70;
@@ -215,10 +245,13 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 		this.player = img;
 
 		this.react = new eui.Rect();
-		this.react.fillColor = 0x0bc546
+		this.react.fillColor = 0x89c59c
 		this.react.width=this.parent.width;
 		this.react.height = this.parent.height;
-		this.parent.addChild(this.react);
+		// this.parent.addChild(this.react);
+
+		LayerMamager.getInstance().get("OptionLayer").addChild(this.joyStick);
+		// this.parent.addChild(this.joyStick);
 	}
 
 	public onFrame(): void {
@@ -253,6 +286,13 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 		if(now - this.lastSendTime > 20 && this.bgUtil.power>0){
 			this.sendMsg(movdCmd);
 			this.lastSendTime = now;
+			let param = {
+				worldX:Math.round(this.worldX-this.x + 320 - this.width/2),
+				worldY:Math.round(this.worldY-this.y + 1136/2 - this.height/2),
+				stageX:this.worldX-this.dx,
+				stageY:this.worldY-this.dy
+			};
+			egret.localStorage.setItem("locationParam",JSON.stringify(param));
 		}
 
 		//重新布局

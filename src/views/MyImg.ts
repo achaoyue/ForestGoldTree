@@ -6,6 +6,7 @@ class MyImg extends eui.Component{
 	text:string;
 
 	img:eui.Image;
+	showText:boolean = true;
 	public constructor() {
 		super();
 		this.addEventListener(egret.TouchEvent.TOUCH_TAP,this.click,this);
@@ -21,19 +22,26 @@ class MyImg extends eui.Component{
 		img.texture = this.texture;
 		img.anchorOffsetX = this.width/2;
 		img.anchorOffsetY = this.height/2;
+		img.x = this.width/2;
+		img.y = this.height/2;
 		this.addChild(img);
 		this.img = img;
 
 
-		let text = new eui.Label();
-		text.text = this.ox+"-"+this.oy;
-		text.textColor=0x0;
-		text.size = 12;
-		this.addChild(text);
-
-		text.addEventListener(egret.Event.ENTER_FRAME,()=>{
+		
+		if(this.showText){
+			let text = new eui.Label();
 			text.text = this.ox+"-"+this.oy;
-		},this);
+			text.textColor=0x0;
+			text.size = 12;
+			text.percentWidth = 100;
+			text.textAlign = "center"
+			text.y = this.height;
+			text.addEventListener(egret.Event.ENTER_FRAME,()=>{
+				text.text = this.ox+"-"+this.oy;
+			},this);
+			this.addChild(text);
+		}
 
 	}
 
@@ -41,6 +49,7 @@ class MyImg extends eui.Component{
 		let msgComponent = new TextMessage();
 		this.addChild(msgComponent);
 		msgComponent.anchorOffsetX = msgComponent.width /2;
+		msgComponent.x = this.width/2;
 		msgComponent.setText(msg);
 		// let tw = egret.Tween.get(msgComponent, { loop: false });
 		// tw.wait(300).to({ y: -200, alpha:0}, 2000, egret.Ease.backIn).call(()=>{

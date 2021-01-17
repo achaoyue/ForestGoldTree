@@ -3,10 +3,5 @@ class OptionLayer extends egret.DisplayObjectContainer{
 
 	public constructor() {
 		super();
-		// this.visible = false;
-		// this.percentWidth = 100;
-		this.height = 100;
-
-		console.log(this.height)
 	}
 }
