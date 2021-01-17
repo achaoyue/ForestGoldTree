@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "checkbox_select_disabled_png,checkbox_select_down_png,checkbox_select_up_png,checkbox_unselect_png,selected_png,border_png,header_png,radiobutton_select_disabled_png,radiobutton_select_down_png,radiobutton_select_up_png,radiobutton_unselect_png,roundthumb_png,thumb_png,track_png,tracklight_png,handle_png,off_png,on_png,button_down_png,button_up_png,thumb_pb_png,track_pb_png,track_sb_png,bg_jpg,egret_icon_png,description_json,bg1_jpg,grass_png,tree1_png,Back_01_png,Back_02_png,Joystick_03_png,turtle_png,turtle2_png,tree2_png,tree3_png,house1_png",
+			"keys": "checkbox_select_disabled_png,checkbox_select_down_png,checkbox_select_up_png,checkbox_unselect_png,selected_png,border_png,header_png,radiobutton_select_disabled_png,radiobutton_select_down_png,radiobutton_select_up_png,radiobutton_unselect_png,roundthumb_png,thumb_png,track_png,tracklight_png,handle_png,off_png,on_png,button_down_png,button_up_png,thumb_pb_png,track_pb_png,track_sb_png,bg_jpg,egret_icon_png,description_json,bg1_jpg,grass_png,tree1_png,Back_01_png,Back_02_png,Joystick_03_png,turtle_png,turtle2_png,tree2_png,tree3_png,house1_png,msg_png",
 			"name": "preload"
 		}
 	],
@@ -132,64 +132,69 @@
 			"name": "egret_icon_png"
 		},
 		{
-			"name": "description_json",
+			"url": "config/description.json",
 			"type": "json",
-			"url": "config/description.json"
+			"name": "description_json"
 		},
 		{
-			"name": "bg1_jpg",
+			"url": "assets/bg1.jpg",
 			"type": "image",
-			"url": "assets/bg1.jpg"
+			"name": "bg1_jpg"
 		},
 		{
-			"name": "grass_png",
+			"url": "assets/grass.png",
 			"type": "image",
-			"url": "assets/grass.png"
+			"name": "grass_png"
 		},
 		{
-			"name": "tree1_png",
+			"url": "assets/tree1.png",
 			"type": "image",
-			"url": "assets/tree1.png"
+			"name": "tree1_png"
 		},
 		{
-			"name": "Back_01_png",
+			"url": "assets/Back_01.png",
 			"type": "image",
-			"url": "assets/Back_01.png"
+			"name": "Back_01_png"
 		},
 		{
-			"name": "Back_02_png",
+			"url": "assets/Back_02.png",
 			"type": "image",
-			"url": "assets/Back_02.png"
+			"name": "Back_02_png"
 		},
 		{
-			"name": "Joystick_03_png",
+			"url": "assets/Joystick_03.png",
 			"type": "image",
-			"url": "assets/Joystick_03.png"
+			"name": "Joystick_03_png"
 		},
 		{
-			"name": "turtle_png",
+			"url": "assets/turtle.png",
 			"type": "image",
-			"url": "assets/turtle.png"
+			"name": "turtle_png"
 		},
 		{
-			"name": "turtle2_png",
+			"url": "assets/turtle2.png",
 			"type": "image",
-			"url": "assets/turtle2.png"
+			"name": "turtle2_png"
 		},
 		{
-			"name": "tree2_png",
+			"url": "assets/tree2.png",
 			"type": "image",
-			"url": "assets/tree2.png"
+			"name": "tree2_png"
 		},
 		{
-			"name": "tree3_png",
+			"url": "assets/tree3.png",
 			"type": "image",
-			"url": "assets/tree3.png"
+			"name": "tree3_png"
 		},
 		{
-			"name": "house1_png",
+			"url": "assets/house1.png",
 			"type": "image",
-			"url": "assets/house1.png"
+			"name": "house1_png"
+		},
+		{
+			"name": "msg_png",
+			"type": "image",
+			"url": "assets/msg.png"
 		}
 	]
 }

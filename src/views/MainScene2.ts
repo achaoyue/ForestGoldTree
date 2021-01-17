@@ -1,7 +1,7 @@
 /// <reference path="../../libs/joyStick/joyStick.d.ts" />
 
 class MainScene2 extends eui.Component implements eui.UIComponent {
-	react : MyRect;
+	react:eui.Rect;
 	bgUtil: BgSceneUtil;
 	worldX: number;
 	worldY: number;
@@ -69,12 +69,9 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 
 		this.initWebsocket();
 
-		this.react = new MyRect();
-		this.react.fillColor = 0xFFFFFF
-		this.react.alpha = 0.9;
-		this.react.width = this.width;
-		this.react.height = this.height;
-		this.addChild(this.react);
+		this.addEventListener(egret.TouchEvent.TOUCH_TAP,()=>{
+			console.log("adsfasdf")
+	},this);
 	}
 
 	public justEle(img: any) {
@@ -95,7 +92,7 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 			starty:worldY,
 			endx:worldX+this.width,
 			endy:worldY+this.height,
-			pageSize:200
+			pageSize:700
 		};
 		NetTool.get("http://192.168.3.21:8080/data/test/bgList?",param).then(ag => {
 			let e:any = ag;
@@ -112,6 +109,7 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 				img.texture = RES.getRes(ele.url);
 				img.ox = ele.worldX
 				img.oy = ele.worldY
+				img.text = ele.text;
 				this.justEle(img);
 				this.newMap[img.id] = img;
 			}
@@ -215,6 +213,12 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 		img.anchorOffsetX = img.width/2;
 		img.anchorOffsetY = img.height/2;
 		this.player = img;
+
+		this.react = new eui.Rect();
+		this.react.fillColor = 0x0bc546
+		this.react.width=this.parent.width;
+		this.react.height = this.parent.height;
+		this.parent.addChild(this.react);
 	}
 
 	public onFrame(): void {

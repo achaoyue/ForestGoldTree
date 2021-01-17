@@ -3,10 +3,12 @@ class MyImg extends eui.Component{
 	ox:number;
 	oy:number;
 	texture:egret.Texture;
+	text:string;
 
 	img:eui.Image;
 	public constructor() {
 		super();
+		this.addEventListener(egret.TouchEvent.TOUCH_TAP,this.click,this);
 	}
 
 	protected childrenCreated(): void {
@@ -22,6 +24,17 @@ class MyImg extends eui.Component{
 		this.addChild(img);
 		this.img = img;
 
+
+		let text = new eui.Label();
+		text.text = this.ox+"-"+this.oy;
+		text.textColor=0x0;
+		text.size = 12;
+		this.addChild(text);
+
+		text.addEventListener(egret.Event.ENTER_FRAME,()=>{
+			text.text = this.ox+"-"+this.oy;
+		},this);
+
 	}
 
 	public say(msg:string){
@@ -34,5 +47,18 @@ class MyImg extends eui.Component{
 		// 	this.removeChild(msgComponent);
 		// })
 		TweenMax.to(msgComponent,5,{ y: -200, alpha:0,ease: Cubic.easeOut})
+	}
+
+	public click(event:egret.TouchEvent){
+		event.stopPropagation();
+		event.preventDefault();
+		console.log("aaaaa")
+		if(this.text == null){
+			return;
+		}
+		let panel = new MsgShowPanel();
+		LayerMamager.getInstance().get("PopUpLayer").addChild(panel);
+		panel.label.text = this.text;
+		LayerMamager.getInstance().get("PopUpLayer").visible = true;
 	}
 }

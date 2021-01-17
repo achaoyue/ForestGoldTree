@@ -6,6 +6,7 @@ class OptionalPanel extends eui.Component implements  eui.UIComponent {
 
 	public selectElement:SelectElement;
 	public sendTextScenes:SendTextScenes;
+	public leavePanel:LeaveMessagePanel;
 	public constructor() {
 		super();
 	}
@@ -25,21 +26,21 @@ class OptionalPanel extends eui.Component implements  eui.UIComponent {
 	
 
 	public addEleBtnClick(event:egret.TouchEvent){
-		console.log("addEleBtnClick")
 		this.selectElement.visible = true;
 		LayerMamager.getInstance().get("PopUpLayer").visible = true;
 	}
 
 
 	public msgBtnClick(event:egret.TouchEvent){
-		console.log("msgBtnClick")
 		this.sendTextScenes.visible = true;
         LayerMamager.getInstance().get("PopUpLayer").visible = true;
 	}
 
 
 	public leaveBtnClick(event:egret.TouchEvent){
-
+		console.log("leaveBtnClick")
+		this.leavePanel.visible = true;
+		LayerMamager.getInstance().get("PopUpLayer").visible = true;
 	}
 
 }

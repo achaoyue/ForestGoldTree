@@ -23,5 +23,15 @@
         "path": "scenes/OptionalPanel.ts",
         "class": "OptionalPanel",
         "parentPath": ""
+    },
+    "1770bfcd9a5": {
+        "path": "scenes/LeaveMessagePanel.ts",
+        "class": "LeaveMessagePanel",
+        "parentPath": ""
+    },
+    "1770c263f9a": {
+        "path": "scenes/MsgShowPanel.ts",
+        "class": "MsgShowPanel",
+        "parentPath": ""
     }
 }

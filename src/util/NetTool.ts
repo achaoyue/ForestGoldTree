@@ -39,7 +39,7 @@ class NetTool {
 		let str = "";
 		for(let key in paramObj){
 			let param = paramObj[key];
-			str += key+"="+param+"&"
+			str += key+"="+encodeURIComponent(param)+"&"
 		}
 		return str;
 	}

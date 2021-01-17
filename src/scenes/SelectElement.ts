@@ -33,8 +33,7 @@ public closeBtn:eui.Image;
 		this.houseImg.addEventListener(egret.TouchEvent.TOUCH_TAP,this.click,this);
 		this.closeBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.close,this);
 
-		console.log("mainScene")
-		this.mainScene.addEventListener(egret.TouchEvent.TOUCH_TAP,this.listList,this);
+		this.mainScene.parent.addEventListener(egret.TouchEvent.TOUCH_TAP,this.listList,this);
 	}
 
 	public click(e:egret.Event){
@@ -52,16 +51,21 @@ public closeBtn:eui.Image;
 	}
 
 	public listList(e:egret.TouchEvent){
+		event.stopPropagation();
+		event.preventDefault();
+		let point = this.mainScene.globalToLocal(e.stageX,e.stageY);
+		let param = {
+			url:this.selected,
+			worldX:Math.round(this.mainScene.worldX + point.x),
+			worldY:Math.round(this.mainScene.worldY+ point.y),
+			deleted:0
+		};
+		console.log(param);
+
 		if(this.selected == null){
 			return;
 		}
-		console.log(this.mainScene.worldX + e.localX,this.mainScene.worldY+e.localY);
-		let param = {
-			url:this.selected,
-			worldX:this.mainScene.worldX + e.localX,
-			worldY:this.mainScene.worldY+e.localY,
-			deleted:0
-		};
+		
 		NetTool.get("http://192.168.3.21:8080/data/test/saveBgList?",param).then((ag:any) => {
 			console.log(ag);
 			this.visible = false;

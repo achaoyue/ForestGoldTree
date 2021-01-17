@@ -96,11 +96,22 @@ class Main extends eui.UILayer {
     }
 
     private textfield: egret.TextField;
+protected test(){
+    let main = new MainScene();
+    this.addChild(main);
+}
+
     /**
      * 创建场景界面
      * Create scene interface
      */
     protected createGameScene(): void {
+        
+        // if(1==1){
+        //     this.test();
+        //     return;
+        // }
+
         let gameLayer = new GameLayer();
         this.addChild(gameLayer);
 
@@ -126,6 +137,11 @@ class Main extends eui.UILayer {
         let optionPanel = new OptionalPanel();
         optionPanel.selectElement = select;
         optionLayer.addChild(optionPanel);
+
+        let leavePanel = new LeaveMessagePanel();
+        leavePanel.mainScene = mainScene;
+        optionPanel.leavePanel = leavePanel;
+        popUpLayer.addChild(leavePanel);
 
 
         this.msgScene = new SendTextScenes();

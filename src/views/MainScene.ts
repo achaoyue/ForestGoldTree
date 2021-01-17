@@ -1,30 +1,33 @@
 class MainScene extends eui.Component implements  eui.UIComponent {
 	bgUtil:BgSceneUtil;
+	react:eui.Rect;
+
+	worldX: number;
+	worldY: number;
+
+	originx: number;
+	originy: number;
+
+	dx: number;
+	dy: number;
+
 	public constructor() {
 		super();
-		this.bgUtil = new BgSceneUtil();
-		this.bgUtil.ang = Math.PI/4;
-		this.bgUtil.moveSpeed = 10;
-		this.addEventListener(egret.Event.ENTER_FRAME,this.onFrame,this);
+		
 
-		this.width = 1000;
-		this.height = 1000;
-		let img = new eui.Image();
-		img.texture = RES.getRes("egret_icon_png");
-		let width = img.texture.textureWidth;
-		let height = img.texture.textureHeight;
 
-		for(let i = 0;i<1000;){
-			for(let j = 0;j<1000;){
-				let img = new eui.Image();
-				img.texture = RES.getRes("egret_icon_png");
-				img.x = i;
-				img.y = j;
-				this.addChild(img);
-				j+=img.height;
-			}
-			i+=width;
-		}
+		this.worldX = 0;
+		this.worldY = 0;
+		this.dx = 0;
+		this.dy = 0;
+		this.width = 1280+640;
+		this.height = 2425;
+		this.originx = -(this.width - 640) / 2;
+		this.originy = -(this.height - 1136) / 2;
+		this.worldX = this.originx;
+		this.worldY = this.originy;
+
+		this.addEventListener(egret.TouchEvent.TOUCH_TAP,this.click,this);
 	}
 
 	protected partAdded(partName:string,instance:any):void
@@ -37,12 +40,24 @@ class MainScene extends eui.Component implements  eui.UIComponent {
 	protected childrenCreated():void
 	{
 		super.childrenCreated();
+		this.react = new eui.Rect();
+		this.react.x = 0;
+		this.react.y = 0;
+		this.react.width = 1300
+		this.react.height = 2000;
+		this.react.fillColor = 0xF0ADAD
+		// this.react.alpha = 1;
+		// this.react.percentWidth=100;
+		// this.react.percentHeight = 100;
+		// this.addChild(this.react);
 	}
 
 	public onFrame():void{
-		this.bgUtil.move(this);
+		
 	}
 
-
+	public click(){
+		console.log("click");
+	}
 	
 }
