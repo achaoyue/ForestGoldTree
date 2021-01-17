@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="LeaveMessagePanelSkin" width="487.6" height="304.84" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" >
+	<w:Config id="1770bfcd9a5" ></w:Config>
+	<e:Rect width="100%" height="100%" x="0" y="0" fillColor="0xD0E1D5"/>
+	<e:Button id="subBtn" label="提交" x="187" y="232"/>
+	<e:EditableText id="inputText" width="475" height="183" x="5" y="15" anchorOffsetX="0" multiline="true" anchorOffsetY="0" textColor="0x420303" prompt="输入文字"/>
+	<e:Image id="closeBtn" source="Joystick_03_png" x="423" y="-23" anchorOffsetX="0" width="48" anchorOffsetY="0" height="53"/>
+</e:Skin>
