@@ -62,8 +62,6 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 		this.bgUtil.power = 0;
 		this.addEventListener(egret.Event.ENTER_FRAME, this.onFrame, this);
 
-		this.worldX = 0;
-		this.worldY = 0;
 		this.dx = 0;
 		this.dy = 0;
 		this.width = 1280+640;
@@ -115,7 +113,7 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 			endy:worldY+this.height,
 			pageSize:700
 		};
-		NetTool.get("http://192.168.3.21:8080/data/test/bgList?",param).then(ag => {
+		NetTool.get("http://lelefans.top:8081/data/test/bgList?",param).then(ag => {
 			let e:any = ag;
 			// console.log(e,worldX,worldY);
 
@@ -173,7 +171,7 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 		}
 		let positionParam = JSON.parse(positionParamStr);
 		//连接服务器
-		this.socket.connectByUrl("ws://192.168.3.21:8080/websocket/"+positionParam.worldX+"/"+positionParam.worldY);
+		this.socket.connectByUrl("ws://lelefans.top:8081/websocket/"+positionParam.worldX+"/"+positionParam.worldY);
 	}
 
 	public onReceiveMessage():void{
@@ -231,6 +229,28 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 		this.socket.writeUTF(JSON.stringify(msg));
 	}
 
+	private checkRect(msg:any){
+		let worldX = this.format(Math.round(this.worldX-this.dx + this.width/2));
+		let worldY = this.format(Math.round(this.worldY-this.dy + this.height/2));
+		let maxX = worldX + 320*3 - 20;
+		let minX = worldX - 320*2 + 20;
+		let maxY = worldY + 320*4 - 20;
+		let minY = worldY - 320*3 + 20;
+		if(!(msg.ox > minX && msg.ox<maxX && msg.ox>minY && msg.oy<maxY)){
+
+			console.log("out of range ",msg.id,msg.ox,msg.oy,maxX,minX,maxY,minY)
+			return false;
+		}
+		return true;
+	}
+
+	private format(x){
+		if(x<0){
+			x = x - 320;
+		}
+		return Math.floor(x/320)*320;
+	}
+
 	protected childrenCreated(): void {
 		super.childrenCreated();
 
@@ -273,6 +293,10 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 
 		for(let key in this.players){
 			this.justEle(this.players[key]);
+			if(!this.checkRect(this.players[key])){
+				this.players[key].parent && this.players[key].parent.removeChild(this.players[key])
+				delete this.players[key] 
+			}
 		}
 
 		let movdCmd = {

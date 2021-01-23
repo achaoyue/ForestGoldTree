@@ -39,6 +39,7 @@ class MyImg extends eui.Component{
 			text.y = this.height;
 			text.addEventListener(egret.Event.ENTER_FRAME,()=>{
 				text.text = this.ox+"-"+this.oy;
+				text.text = this.id+""
 			},this);
 			this.addChild(text);
 		}
@@ -51,11 +52,11 @@ class MyImg extends eui.Component{
 		msgComponent.anchorOffsetX = msgComponent.width /2;
 		msgComponent.x = this.width/2;
 		msgComponent.setText(msg);
-		// let tw = egret.Tween.get(msgComponent, { loop: false });
-		// tw.wait(300).to({ y: -200, alpha:0}, 2000, egret.Ease.backIn).call(()=>{
-		// 	this.removeChild(msgComponent);
-		// })
-		TweenMax.to(msgComponent,5,{ y: -200, alpha:0,ease: Cubic.easeOut})
+		let tw = egret.Tween.get(msgComponent, { loop: false });
+		tw.wait(300).to({ y: -200, alpha:0}, 5000, egret.Ease.backIn).call(()=>{
+			this.removeChild(msgComponent);
+		})
+		// TweenMax.to(msgComponent,5,{ y: -200, alpha:0,ease: Cubic.easeOut})
 	}
 
 	public click(event:egret.TouchEvent){

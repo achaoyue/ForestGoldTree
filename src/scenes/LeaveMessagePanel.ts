@@ -38,7 +38,7 @@ public closeBtn:eui.Image;
 		};
 		console.log(param)
 
-		NetTool.get("http://192.168.3.21:8080/data/test/saveBgList?",param).then((ag:any) => {
+		NetTool.get("http://lelefans.top:8081/data/test/saveBgList?",param).then((ag:any) => {
 			console.log(ag);
 			this.visible = false;
 			

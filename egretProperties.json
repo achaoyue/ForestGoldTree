@@ -1,6 +1,6 @@
 {
-  "engineVersion": "5.3.8",
-  "compilerVersion": "5.3.8",
+  "engineVersion": "5.2.33",
+  "compilerVersion": "5.2.33",
   "template": {},
   "target": {
     "current": "web"
@@ -34,11 +34,7 @@
       "name": "joyStick",
       "path": "./libs/joyStick"
     }
-    ,
-    {
-      "name": "greensock",
-      "path": "./libs/greensock"
-    }
+    
   ],
   "vivo": {
     "usePlugin": true

@@ -9,8 +9,7 @@
 		"libs/modules/tween/tween.js",
 		"libs/modules/promise/promise.js",
 		"libs/modules/socket/socket.js",
-		"libs/joyStick/joyStick.js",
-		"libs/greensock/greensock.js"
+		"libs/joyStick/joyStick.js"
 	],
 	"game": [
 		"main.js"
