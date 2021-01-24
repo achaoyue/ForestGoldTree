@@ -66,7 +66,7 @@ public closeBtn:eui.Image;
 			return;
 		}
 		
-		NetTool.get("http://lelefans.top:8081/data/test/saveBgList?",param).then((ag:any) => {
+		NetTool.get(Config.getConfig().httpUrl+"/data/test/saveBgList?",param).then((ag:any) => {
 			console.log(ag);
 			this.visible = false;
 			

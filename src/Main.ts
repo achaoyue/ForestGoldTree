@@ -136,6 +136,7 @@ protected test(){
 
         let optionPanel = new OptionalPanel();
         optionPanel.selectElement = select;
+        optionPanel.mainScene = mainScene;
         optionLayer.addChild(optionPanel);
 
         let leavePanel = new LeaveMessagePanel();

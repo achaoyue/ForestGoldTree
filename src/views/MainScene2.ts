@@ -113,7 +113,7 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 			endy:worldY+this.height,
 			pageSize:700
 		};
-		NetTool.get("http://lelefans.top:8081/data/test/bgList?",param).then(ag => {
+		NetTool.get(Config.getConfig().httpUrl+"/data/test/bgList?",param).then(ag => {
 			let e:any = ag;
 			// console.log(e,worldX,worldY);
 
@@ -171,7 +171,7 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 		}
 		let positionParam = JSON.parse(positionParamStr);
 		//连接服务器
-		this.socket.connectByUrl("ws://lelefans.top:8081/websocket/"+positionParam.worldX+"/"+positionParam.worldY);
+		this.socket.connectByUrl(Config.getConfig().wsUrl+positionParam.worldX+"/"+positionParam.worldY);
 	}
 
 	public onReceiveMessage():void{
@@ -243,7 +243,8 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 		let minX = worldX - 320*2 + 10;
 		let maxY = worldY + 320*4 - 10;
 		let minY = worldY - 320*3 + 10;
-		if(!(msg.ox > minX && msg.ox<maxX && msg.ox>minY && msg.oy<maxY)){
+		if(!(msg.ox > minX && msg.ox<maxX && msg.oy>minY && msg.oy<maxY)){
+			console.log(msg.id,msg.ox,msg.oy,minX,maxX,minY,maxY)
 			return false;
 		}
 		return true;
@@ -307,6 +308,7 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 		for(let key in this.players){
 			this.justEle(this.players[key]);
 			if(!this.checkRect(this.players[key])){
+				console.log("out of range",this.players[key].id)
 				this.players[key].parent && this.players[key].parent.removeChild(this.players[key])
 				delete this.players[key] 
 			}
@@ -350,6 +352,13 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 			id:111,
 			type:3,
 			text:event.data
+		}
+		this.sendMsg(msg);
+	}
+
+	public fire(){
+		let msg = {
+			type:5,
 		}
 		this.sendMsg(msg);
 	}

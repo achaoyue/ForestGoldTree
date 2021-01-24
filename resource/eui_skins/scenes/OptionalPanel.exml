@@ -4,4 +4,5 @@
 	<e:Button id="addEleBtn" label="添加" x="166" y="22"/>
 	<e:Button id="msgBtn" label="发送消息" x="282" y="22"/>
 	<e:Button id="leaveBtn" label="留言" x="51" y="23"/>
+	<e:Button id="grabBtn" label="抓" x="510" y="829"/>
 </e:Skin>
