@@ -180,7 +180,7 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 		let player:MyImg = this.players[jsonMsg.id];
 		if(jsonMsg.type == 2 || jsonMsg.type == 1){
 			if(player == null){
-				var p = RES.getRes("turtle2_png");
+				var p = RES.getRes(jsonMsg.pic);
 				var img = new MyImg();
 				img.width = 70;
 				img.height = 70;
@@ -192,7 +192,15 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 				// img.anchorOffsetY = img.height/2;
 				
 				player = img;
+				player.id = jsonMsg.id;
+				player.ox = jsonMsg.targetX+this.width/2;
+				player.oy = jsonMsg.targetY+this.height/2;
+
+				if(!this.checkRect(player)){
+					return;
+				}
 				this.players[jsonMsg.id] = img;
+				this.justEle(img)
 				this.parent.addChild(img);
 			}
 			player.img.rotation = Math.atan2(jsonMsg.dirX,-jsonMsg.dirY)*180/Math.PI
@@ -232,13 +240,11 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 	private checkRect(msg:any){
 		let worldX = this.format(Math.round(this.worldX-this.dx + this.width/2));
 		let worldY = this.format(Math.round(this.worldY-this.dy + this.height/2));
-		let maxX = worldX + 320*3 - 20;
-		let minX = worldX - 320*2 + 20;
-		let maxY = worldY + 320*4 - 20;
-		let minY = worldY - 320*3 + 20;
+		let maxX = worldX + 320*3 - 10;
+		let minX = worldX - 320*2 + 10;
+		let maxY = worldY + 320*4 - 10;
+		let minY = worldY - 320*3 + 10;
 		if(!(msg.ox > minX && msg.ox<maxX && msg.ox>minY && msg.oy<maxY)){
-
-			console.log("out of range ",msg.id,msg.ox,msg.oy,maxX,minX,maxY,minY)
 			return false;
 		}
 		return true;
@@ -274,6 +280,14 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 		// this.parent.addChild(this.joyStick);
 	}
 
+// public onFrame(): void {
+// 	let start = new Date().getTime();
+// 	this.onFrame2();
+// 	if(window.xx ==1){
+// 		console.log(new Date().getTime() - start)
+// 	}
+
+// }
 	public onFrame(): void {
 		//背景移动量计算
 		this.dx = this.dx + Math.cos(this.bgUtil.ang) * this.bgUtil.moveSpeed * this.bgUtil.power;

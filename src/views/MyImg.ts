@@ -6,7 +6,7 @@ class MyImg extends eui.Component{
 	text:string;
 
 	img:eui.Image;
-	showText:boolean = true;
+	showText:boolean = false;
 	public constructor() {
 		super();
 		this.addEventListener(egret.TouchEvent.TOUCH_TAP,this.click,this);
@@ -39,7 +39,7 @@ class MyImg extends eui.Component{
 			text.y = this.height;
 			text.addEventListener(egret.Event.ENTER_FRAME,()=>{
 				text.text = this.ox+"-"+this.oy;
-				text.text = this.id+""
+				// text.text = this.id+""
 			},this);
 			this.addChild(text);
 		}
