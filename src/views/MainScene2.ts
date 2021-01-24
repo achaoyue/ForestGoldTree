@@ -189,7 +189,6 @@ class MainScene2 extends eui.Component implements eui.UIComponent {
 				img.x = (this.parent.width - img.width) /2;
 				img.y = (this.parent.height - img.height)/2;
 				img.anchorOffsetX = img.width/2;
-				// img.anchorOffsetY = img.height/2;
 				
 				player = img;
 				player.id = jsonMsg.id;
